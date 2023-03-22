@@ -23,16 +23,19 @@ class App extends React.Component {
     }))
   }
 
-
-    randomValue() {
+    randomValue = () => {
         const min = -50;
         const max = 50;
         const random = min + (Math.random() * (max - min));
         this.setState({ counterValue: Math.trunc(random) });
     }
 
-  // Используйте только стрелочную форму методов
-  // Почему? Подробный ответ будет в следующем уроке
+    resetValue =() => {
+      this.setState(state => ({
+          counterValue: 10,
+      }))
+    }
+
 
   render() {
 
@@ -43,7 +46,7 @@ class App extends React.Component {
             <button onClick={this.incrementValue}>INC</button>
             <button onClick={this.decrementValue}>DEC</button>
             <button onClick={this.randomValue}>RND</button>
-            <button>RESET</button>
+            <button onClick={this.resetValue}>RESET</button>
           </div>
         </div>
     )
