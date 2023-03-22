@@ -7,20 +7,24 @@ class App extends React.Component {
     super(props);
     this.randomValue = this.randomValue.bind(this);
     this.state = {
-        counterValue: 10,
+        counterValue: this.props.counterValue,
     }
   }
 
   incrementValue = () => {
-      this.setState(state => ({
-          counterValue: this.state.counterValue + 1,
-      }))
+      if (this.state.counterValue < 50) {
+          this.setState(state => ({
+              counterValue: this.state.counterValue + 1,
+          }))
+      }
   }
 
   decrementValue = () => {
-    this.setState(state => ({
-        counterValue: this.state.counterValue - 1,
-    }))
+    if (this.state.counterValue > -50) {
+        this.setState(state => ({
+            counterValue: this.state.counterValue - 1,
+        }))
+    }
   }
 
     randomValue = () => {
@@ -32,10 +36,9 @@ class App extends React.Component {
 
     resetValue =() => {
       this.setState(state => ({
-          counterValue: 10,
+          counterValue: this.props.counterValue,
       }))
     }
-
 
   render() {
 
@@ -55,7 +58,7 @@ class App extends React.Component {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App />
+    <App counterValue={0} />
 );
 
 
