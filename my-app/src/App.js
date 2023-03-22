@@ -5,19 +5,44 @@ import ReactDOM from 'react-dom/client';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.randomValue = this.randomValue.bind(this);
+    this.state = {
+        counterValue: 10,
+    }
   }
+
+  incrementValue = () => {
+      this.setState(state => ({
+          counterValue: this.state.counterValue + 1,
+      }))
+  }
+
+  decrementValue = () => {
+    this.setState(state => ({
+        counterValue: this.state.counterValue - 1,
+    }))
+  }
+
+
+    randomValue() {
+        const min = -50;
+        const max = 50;
+        const random = min + (Math.random() * (max - min));
+        this.setState({ counterValue: Math.trunc(random) });
+    }
 
   // Используйте только стрелочную форму методов
   // Почему? Подробный ответ будет в следующем уроке
 
   render() {
+
     return (
         <div className={'app'}>
-          <div className={'counter'}>10</div>
+          <div className={'counter'}>{this.state.counterValue}</div>
           <div className={'controls'}>
-            <button>INC</button>
-            <button>DEC</button>
-            <button>RND</button>
+            <button onClick={this.incrementValue}>INC</button>
+            <button onClick={this.decrementValue}>DEC</button>
+            <button onClick={this.randomValue}>RND</button>
             <button>RESET</button>
           </div>
         </div>
