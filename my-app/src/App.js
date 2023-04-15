@@ -10,11 +10,20 @@ const App = (props) => {
         if (counter < 50) {
             setCounter(counter => counter + 1)
         }
+
+        if (counter === 50) {
+            alert('Максимальное значение 50');
+            resetCounter();
+        }
     }
 
     const decCounter = () => {
         if (counter > -50) {
             setCounter(counter => counter - 1)
+        }
+        if (counter === -50) {
+            alert('Максимальное значение -50');
+            resetCounter();
         }
     }
 
