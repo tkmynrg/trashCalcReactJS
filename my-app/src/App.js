@@ -1,70 +1,50 @@
-import './App.css';
 import React from 'react';
+import './App.css';
 import ReactDOM from 'react-dom/client';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.randomValue = this.randomValue.bind(this);
-    this.state = {
-        counterValue: this.props.counterValue,
-    }
-  }
 
-  incrementValue = () => {
-      if (this.state.counterValue < 50) {
-          this.setState(state => ({
-              counterValue: this.state.counterValue + 1,
-          }))
-      }
-  }
+const App = (props) => {
+    const [counter, setCounter] = React.useState(props.counter);
 
-  decrementValue = () => {
-    if (this.state.counterValue > -50) {
-        this.setState(state => ({
-            counterValue: this.state.counterValue - 1,
-        }))
-    }
-  }
-
-    randomValue = () => {
-        const min = -50;
-        const max = 50;
-        const random = min + (Math.random() * (max - min));
-        this.setState({ counterValue: Math.trunc(random) });
+    const incCounter = () => {
+        if (counter < 50) {
+            setCounter(counter => counter + 1)
+        }
     }
 
-    resetValue =() => {
-      this.setState(state => ({
-          counterValue: this.props.counterValue,
-      }))
+    const decCounter = () => {
+        if (counter > -50) {
+            setCounter(counter => counter - 1)
+        }
     }
 
-  render() {
+    const rndCounter = () => {
+        setCounter(+(Math.random() * (50 - -50) + -50).toFixed(0))
+    }
+
+    const resetCounter = () => {
+        setCounter(props.counter)
+    }
 
     return (
-        <div className={'app'}>
-          <div className={'counter'}>{this.state.counterValue}</div>
-          <div className={'controls'}>
-            <button onClick={this.incrementValue}>INC</button>
-            <button onClick={this.decrementValue}>DEC</button>
-            <button onClick={this.randomValue}>RND</button>
-            <button onClick={this.resetValue}>RESET</button>
-          </div>
+        <div className="app">
+            <div className="counter">{counter}</div>
+            <div className="controls">
+                <button onClick={incCounter}>INC</button>
+                <button onClick={decCounter}>DEC</button>
+                <button onClick={rndCounter}>RND</button>
+                <button onClick={resetCounter}>RESET</button>
+            </div>
         </div>
     )
-  }
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App counterValue={0} />
+    <App counter={0}/>
 );
-
 
 // 1) Начальное значение счетчика должно передаваться через props
 // 2) INC и DEC увеличивают и уменьшают счетчик соответственно на 1. Без ограничений, но можете добавить границу в -50/50. По достижению границы ничего не происходит
 // 3) RND изменяет счетчик в случайное значение от -50 до 50. Конструкцию можете прогуглить за 20 секунд :) Не зависит от предыдущего состояния
 // 4) RESET сбрасывает счетчик в 0 или в начальное значение из пропсов. Выберите один из вариантов
-
-export default App;
